@@ -1,12 +1,16 @@
 {
   "name": "dwm-devwebavance",
   "version": "1.0.0",
-  "description": "Blabla",
+  "description": "Package description",
   "main": "index.js",
   "scripts": {
+    "markdownlint": "./node_modules/.bin/markdownlint *.md || exit 0",
+    "eslint": "./node_modules/.bin/eslint src/** || exit 0",
+    "lint": "npm run markdownlint && npm run eslint",
     "clean": "rm -rf dist/*",
     "dev": "npm run lint && npm run clean && webpack-dev-server --env=dev",
-    "build": "npm run lint && npm run clean && webpack --env=prod --progress --profile --colors",
+    "build": "npm run lint && npm run clean && webpack --env=prod --progress --profile",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
