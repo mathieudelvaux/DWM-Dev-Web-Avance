@@ -7,16 +7,17 @@ import * as THREE from 'three'
   */
 class Cube {
   /**
-    * Creates an instance of Cube.
+    * @param {object} size cube dimensions
+    * @param {number} size.width width
+    * @param {number} size.height height
+    * @param {number} size.depth depth
     *
     * @memberOf Cube
     */
-  constructor(width, height, depth, color = 0xffffff) {
+  constructor(size, color = 0xffffff) {
     // Initialiser le cube
+    this._size = size
     this._color = color
-    this._width = width
-    this._height = height
-    this._depth = depth
 
     this.init()
   }
@@ -30,20 +31,35 @@ class Cube {
     */
   init() {
     const geometry = new THREE.BoxBufferGeometry(
-      this._width,
-      this._height,
-      this._depth
+      this._size.width,
+      this._size.height,
+      this._size.depth
     )
     const material = new THREE.MeshLambertMaterial({
       color: this._color,
       wireframe: false,
+      shading: THREE.FlatShading,
     })
+
     this._mesh = new THREE.Mesh(geometry, material)
+    this._mesh.castShadow = true
+    this._mesh.receiveShadow = true
     this._mesh.name = 'cube'
   }
 
+  /**
+    * Get mesh
+    *
+    * @readonly
+    *
+    * @memberOf Cube
+    */
   get mesh() {
     return this._mesh
+  }
+
+  update() {
+    this._mesh.rotation.x += 0.01
   }
 }
 
